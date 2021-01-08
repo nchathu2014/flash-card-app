@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Platform, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { connect } from 'react-redux';
 import FontAwesome from '../node_modules/@expo/vector-icons/FontAwesome';
-import { red, lightRed, lightGreen, gray, darkGray } from "../utils/colors";
+import { red, lightRed, lightGreen, darkGray } from "../utils/colors";
 
-// here you can change the default texts for Quiz page 
-const showAnswer = 'Show Answer'
-const hideAnswer = 'Hide Answer'
-const Correct = 'Correct'
-const Incorrect = 'Incorrect'
-const GoBack = 'Go Back'
-const mRestart = 'Restart'
+// Change the default texts for Quiz page
+const showAnswer = 'Show Answer';
+const hideAnswer = 'Hide Answer';
+const Correct = 'Correct';
+const Incorrect = 'Incorrect';
+const GoBack = 'Go Back';
+const mRestart = 'Restart';
 
-function QuizzBtn({ onPress, Texto, styl }) {
+function QuizBtn({ onPress, Texto, styl }) {
 
-  console.log('ST : ', styl)
   return (
     <TouchableOpacity
       onPress={onPress}>
@@ -25,34 +24,37 @@ function QuizzBtn({ onPress, Texto, styl }) {
   )
 }
 
-class Quiz extends React.Component {
+class Quiz extends Component {
   state = {
     count: 0,
     totalCorrect: 0,
     showAnswer: false,
-  }
+  };
 
+  /**
+   * Handle Answer functionality
+   * @param answer
+   * @returns {void|*}
+   */
   handleAnswer = (answer) => {
-    console.log('ANS', answer)
-
     switch (answer) {
       case mRestart:
-        return this.setState({ count: 0, totalCorrect: 0 })
+        return this.setState({ count: 0, totalCorrect: 0 });
         break;
       case showAnswer:
-        return this.setState({ showAnswer: true })
+        return this.setState({ showAnswer: true });
         break;
       case hideAnswer:
-        return this.setState({ showAnswer: false })
+        return this.setState({ showAnswer: false });
         break;
       default:
-        const { deckCards } = this.props
-        const { count } = this.state
-        const savedAnswer = deckCards[count].answer
-        const userAnswer = (savedAnswer === answer)
-        return this.handleQState(userAnswer)
+        const { deckCards } = this.props;
+        const { count } = this.state;
+        const savedAnswer = deckCards[count].answer;
+        const userAnswer = (savedAnswer === answer);
+        return this.handleQState(userAnswer);
     }
-  }
+  };
 
   handleQState = (userAnswer) => (
     this.setState({
@@ -82,12 +84,12 @@ class Quiz extends React.Component {
           : null}
 
         {this.state.showAnswer
-          ? <QuizzBtn Texto={hideAnswer} styl={styles.hideAnswer} onPress={() => this.handleAnswer(hideAnswer)} />
-          : <QuizzBtn Texto={showAnswer} styl={styles.showAnswer} onPress={() => this.handleAnswer(showAnswer)} />
+          ? <QuizBtn Texto={hideAnswer} styl={styles.hideAnswer} onPress={() => this.handleAnswer(hideAnswer)} />
+          : <QuizBtn Texto={showAnswer} styl={styles.showAnswer} onPress={() => this.handleAnswer(showAnswer)} />
         }
         <View style={{ flexDirection: 'row', marginTop: 15 }}>
-          <QuizzBtn Texto={Correct} styl={styles.Correct} onPress={() => this.handleAnswer(true)} />
-          <QuizzBtn Texto={Incorrect} styl={styles.Incorrect} onPress={() => this.handleAnswer(false)} />
+          <QuizBtn Texto={Correct} styl={styles.Correct} onPress={() => this.handleAnswer(true)} />
+          <QuizBtn Texto={Incorrect} styl={styles.Incorrect} onPress={() => this.handleAnswer(false)} />
         </View>
       </View>
     )
@@ -103,8 +105,8 @@ class Quiz extends React.Component {
           <Text style={{ textAlign: "center", fontSize: 19 }}> <Text style={styles.ResultNum}>{totalCorrect}</Text> out of <Text style={styles.ResultNum}>{count}</Text></Text>
         </View>
         <View style={{ marginTop: 15 }}>
-          <QuizzBtn Texto={mRestart} styl={styles.mRestart} onPress={() => this.handleAnswer(mRestart)} />
-          <QuizzBtn Texto={GoBack} styl={styles.GoBack} onPress={() => this.props.navigation.goBack()} />
+          <QuizBtn Texto={mRestart} styl={styles.mRestart} onPress={() => this.handleAnswer(mRestart)} />
+          <QuizBtn Texto={GoBack} styl={styles.GoBack} onPress={() => this.props.navigation.goBack()} />
         </View>
       </View>
     )
@@ -192,7 +194,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     borderWidth: 1,
     padding: 4,
-    marginLeft: 2,
     borderRadius: 5,
     textAlign: "center",
     paddingTop: 35,

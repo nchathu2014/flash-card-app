@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-
-// IF I ACCESS THIS.PROPS
 class Home extends React.Component {
   render() {
     const Decks = this.props.allDecks
-    console.log('PROPSSS', this.props)
     return (
       <View style={styles.container}>
         <Text style={styles.pageTitle}>{Decks ? 'Your Decks' : 'You don\'t have any decks'} </Text>
