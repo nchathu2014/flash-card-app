@@ -1,54 +1,49 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import CreateDeck from "./CreateDeck";
-import { connect } from 'react-redux';
-import { handleInitialData } from "../actions/index";
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {connect} from 'react-redux';
+import {handleInitialData} from "../actions/index";
 import Navigation from '../navigation/Navigation';
 
-class Main extends React.Component {
-  state = {
-    loading: true
-  }
+class Main extends Component {
+    state = {
+        loading: true
+    };
 
-  componentDidMount() {
-    
-    this.props.initialData()
+    componentDidMount() {
+        this.props.initialData();
 
-    setTimeout(() => {
-      this.setState({
-        loading: false
-      })
-    }, 350)
+        setTimeout(() => {
+            this.setState({
+                loading: false
+            })
+        }, 350)
+    }
 
+    render() {
+        return (
+            <View style={styles.container}>
+                {this.state.loading === true
+                    ? null
+                    : <Navigation/>
+                }
 
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.state.loading === true
-          ? null
-          : <Navigation />
-        }
-
-      </View>
-    )
-  }
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
 });
 
-
 const mapDispatchToProps = dispatch => ({
-  initialData: () => dispatch(handleInitialData())
-})
+    initialData: () => dispatch(handleInitialData())
+});
 
 const mapStateToProps = state => ({
-  loading: state.loading
-})
+    loading: state.loading
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
