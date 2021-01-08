@@ -21,7 +21,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Installing Would You Rather
 
-To install Would You Rather, follow these steps:
+To install Mobile Flash Card - Native App, follow these steps:
 
 Windows/Linux and macOS:
 * Download or Run git clone https://github.com/nchathu2014/flash-card-app to clone this repository.
